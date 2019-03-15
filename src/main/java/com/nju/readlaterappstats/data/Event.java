@@ -19,7 +19,7 @@ public class Event {
     private long id;
     private long userId;
     private String packageName;
-    private long timeStamp;
+    private String timeStamp;
     private long duration;
 
     public long getId() {
@@ -46,11 +46,11 @@ public class Event {
         this.packageName = packageName;
     }
 
-    public long getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
