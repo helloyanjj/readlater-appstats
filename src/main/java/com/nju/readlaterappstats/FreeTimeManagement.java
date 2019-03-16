@@ -7,6 +7,7 @@ import com.nju.readlaterappstats.dto.AppStatsRespository;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -20,6 +21,8 @@ public class FreeTimeManagement {
 
     @Inject
     private AppStatsRespository appStatsRespository;
+
+    private static Timer timer=new Timer();
 
     public String addAppStatus(AppStatsRequest request) {
         event = new Event();
@@ -44,7 +47,6 @@ public class FreeTimeManagement {
                 event.setTimeStamp(stampToDate(a.getFirstTimeStamp()));
                 event.setDuration(a.getTotalTimeInForeground());
 
-
                 if (a.getTotalTimeInForeground()>= 30) {
 
                     String[] nowTime = stampToHour(a.getFirstTimeStamp()).split(" ");
@@ -60,6 +62,7 @@ public class FreeTimeManagement {
             String[] timeString=time.toArray(new String[time.size()]);
             List<String> pushTime = array(timeString);
             System.out.println(pushTime);
+            pushMessage(pushTime);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,9 +104,50 @@ public class FreeTimeManagement {
         return res;
     }
 
+    public String stampToYear(long s) {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(s);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
+
+
     public void pushMessage(List<String> pushTime) {
+        long currentTime=System.currentTimeMillis();
+        String currentYear = stampToYear(currentTime);
+        List<String> pushTimes = new ArrayList<>();
+        for (int i=0;i<pushTime.size();i++) {
+            String time = currentYear+ " " + pushTime.get(i) + ":00:00" ;
+            pushTimes.add(time);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        for(int i = 0;i<pushTimes.size();i++){
+            try {
+                date = sdf.parse(pushTimes.get(i));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            timer.schedule(new PushTask(), date);
+        }
 
     }
+
+//    public static void main(String[] args) {
+//        Date date = new Date();
+//        String string = "2019-3-16 13:49:06";
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println();
+//        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+//        try {
+//            timer.schedule(new PushTask(), sdf.parse(string));
+//        } catch (Exception e) {
+//
+//        }
+//
+//    }
 
     public String freeTimeFromAppStats() {
         Map<String, Integer> timeQuantum = new HashMap<>();
