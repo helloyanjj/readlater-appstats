@@ -17,7 +17,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private long userId;
+    private String userId;
     private String packageName;
     private String timeStamp;
     private long duration;
@@ -30,11 +30,11 @@ public class Event {
         this.id = id;
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

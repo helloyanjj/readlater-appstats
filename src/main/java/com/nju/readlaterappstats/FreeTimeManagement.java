@@ -50,15 +50,12 @@ public class FreeTimeManagement {
                 if (a.getTotalTimeInForeground()>= 30) {
 
                     String[] nowTime = stampToHour(a.getFirstTimeStamp()).split(" ");
-//                    System.out.println(nowTime[1]);
                     time.add(nowTime[1]);
                 }
 
-
-
-
-//                appStatsRespository.save(event);
+                appStatsRespository.save(event);
             }
+
             String[] timeString=time.toArray(new String[time.size()]);
             List<String> pushTime = array(timeString);
             System.out.println(pushTime);
@@ -124,29 +121,36 @@ public class FreeTimeManagement {
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        for(int i = 0;i<pushTimes.size();i++){
-            try {
-                date = sdf.parse(pushTimes.get(i));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            timer.schedule(new PushTask(), date);
+
+
+        String string = "2019-3-23 16:53:06";
+        SimpleDateFormat sdsf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            timer.schedule(new PushTask(), sdsf.parse(string));
+        } catch (Exception e) {
+
         }
+
+//        for(int i = 0;i<pushTimes.size();i++){
+//            try {
+//                date = sdf.parse(pushTimes.get(i));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            timer.schedule(new PushTask(), date);
+//        }
 
     }
 
 //    public static void main(String[] args) {
 //        Date date = new Date();
-//        String string = "2019-3-16 13:49:06";
+//        String string = "2019-3-23 16:43:06";
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        System.out.println();
-//        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
 //        try {
 //            timer.schedule(new PushTask(), sdf.parse(string));
 //        } catch (Exception e) {
 //
 //        }
-//
 //    }
 
     public String freeTimeFromAppStats() {
