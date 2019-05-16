@@ -22,7 +22,7 @@ public class FreeTimeManagement {
     @Inject
     private AppStatsRespository appStatsRespository;
 
-    private static Timer timer=new Timer();
+    private static Timer timer = new Timer();
 
     public String addAppStatus(AppStatsRequest request) {
         event = new Event();
@@ -47,7 +47,7 @@ public class FreeTimeManagement {
                 event.setTimeStamp(stampToDate(a.getFirstTimeStamp()));
                 event.setDuration(a.getTotalTimeInForeground());
 
-                if (a.getTotalTimeInForeground()>= 30) {
+                if (a.getTotalTimeInForeground() >= 30) {
 
                     String[] nowTime = stampToHour(a.getFirstTimeStamp()).split(" ");
                     time.add(nowTime[1]);
@@ -56,7 +56,7 @@ public class FreeTimeManagement {
                 appStatsRespository.save(event);
             }
 
-            String[] timeString=time.toArray(new String[time.size()]);
+            String[] timeString = time.toArray(new String[time.size()]);
             List<String> pushTime = array(timeString);
             System.out.println(pushTime);
             pushMessage(pushTime);
@@ -68,12 +68,12 @@ public class FreeTimeManagement {
         return ReturnInfo.success;
     }
 
-    public static List<String> array(String[] array){
+    public static List<String> array(String[] array) {
         List<String> pushTime = new ArrayList<>();
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < array.length; i++) {
             Integer integer = map.get(array[i]);
-            map.put(array[i], integer == null?1:integer+1);
+            map.put(array[i], integer == null ? 1 : integer + 1);
         }
         Set<Map.Entry<String, Integer>> set = map.entrySet();
         for (Map.Entry<String, Integer> entry : set) {
@@ -110,13 +110,12 @@ public class FreeTimeManagement {
     }
 
 
-
     public void pushMessage(List<String> pushTime) {
-        long currentTime=System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
         String currentYear = stampToYear(currentTime);
         List<String> pushTimes = new ArrayList<>();
-        for (int i=0;i<pushTime.size();i++) {
-            String time = currentYear+ " " + pushTime.get(i) + ":00:00" ;
+        for (int i = 0; i < pushTime.size(); i++) {
+            String time = currentYear + " " + pushTime.get(i) + ":00:00";
             pushTimes.add(time);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -155,8 +154,7 @@ public class FreeTimeManagement {
 
     public String freeTimeFromAppStats() {
         Map<String, Integer> timeQuantum = new HashMap<>();
-        timeQuantum.put("",0);
-
+        timeQuantum.put("", 0);
 
 
         List<Long> freeTime = new ArrayList<>();

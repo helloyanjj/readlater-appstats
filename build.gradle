@@ -28,7 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    
+
     implementation 'org.springframework.cloud:spring-cloud-starter-eureka'
     implementation 'org.springframework.cloud:spring-cloud-starter-ribbon'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.0.RELEASE'

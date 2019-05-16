@@ -29,7 +29,7 @@ public class ConsumerController {
     public String sendPush() {
         User user = new User();
 //        return restTemplate.getForEntity("http://RL-BACKEND/hello", String.class).getBody();
-        restTemplate.postForEntity("http://RL-MESSAGEPUSH/sendMessagePush",user, String.class);
+        restTemplate.postForEntity("http://RL-MESSAGEPUSH/sendMessagePush", user, String.class);
         return "success";
     }
 }

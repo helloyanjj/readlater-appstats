@@ -27,14 +27,14 @@ public class FreeTimeEndpoint {
     RestTemplate restTemplate;
 
 
-    Gson gson=new Gson();
+    Gson gson = new Gson();
 
 
     @POST
     @RequestMapping("addAppStats")
     public String addShareContent(@RequestBody String request) {
-        List<AppStatus> appList = gson.fromJson(request, new TypeToken<List<AppStatus>>()
-        {}.getType());
+        List<AppStatus> appList = gson.fromJson(request, new TypeToken<List<AppStatus>>() {
+        }.getType());
         String result = freeTimeManagement.addAppStatus(appList);
         return result;
     }

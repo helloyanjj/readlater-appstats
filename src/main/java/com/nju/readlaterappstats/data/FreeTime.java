@@ -1,5 +1,7 @@
 package com.nju.readlaterappstats.data;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,11 +11,11 @@ import java.util.List;
 /**
  * created by yanjunjie
  */
-
-@Entity
+//@Component
+//@Entity
 public class FreeTime {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //    @Id
+//    @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String userId;
     private String dataTime;

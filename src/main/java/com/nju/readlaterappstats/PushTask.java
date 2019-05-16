@@ -37,7 +37,7 @@ public class PushTask extends TimerTask {
 
         RestTemplate restTemplate = new RestTemplate();
         System.out.println("ssss");
-        restTemplate.postForEntity("http://localhost:2223/sendMessagePush",user, String.class);
+        restTemplate.postForEntity("http://localhost:2223/sendMessagePush", user, String.class);
 //        restTemplate.postForEntity("http://RL-MESSAGEPUSH/sendMessagePush",user, String.class);
 
 //        restTemplate.getForEntity("http://RL-BACKEND/hello", String.class).getBody();
